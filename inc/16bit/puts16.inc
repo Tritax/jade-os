@@ -1,6 +1,9 @@
 ; puts16
 ;
 
+%ifndef __PUTS_16_
+%define __PUTS_16_
+
 [BITS 16]
 
 puts16:
@@ -21,3 +24,5 @@ puts16:
   pop   bx
   pop   ax
   ret
+
+%endif ;__PUTS_16_
