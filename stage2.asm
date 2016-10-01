@@ -9,17 +9,23 @@ main:
 	xchg 	bx, bx
 
 .init:
-	cli
-	push 	cs
-	pop 	ds
-
+	; welcome to stage 2
 	mov 	si, load_msg
 	call 	puts16
 
-; term
-	mov 	si, sys_halt
-	call 	puts16
+	; install GDT
+	xchg bx, bx
+	call 	install_gdt
 
+	; enter PMode
+	cli
+	mov 	eax, cr0
+	or 		eax, 1
+	mov 	cr0, eax
+
+	;
+
+halt_sys:
 	cli
 	hlt
 

@@ -4,6 +4,8 @@
 %define __GDT_H_
 
 install_gdt:
+  xchg bx, bx
+  
   cli
   pusha
   lgdt  [toc]

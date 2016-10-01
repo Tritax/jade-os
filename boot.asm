@@ -92,13 +92,13 @@ main:
 	; locate and load kernel
 	call 	find_kernel
 
+	; check return code (1 == fail)
 	cmp 	dx, 1
 	je 		.error
 
+	; good to go, jump to stage2
 	mov 	si, op_ok
 	call 	prints
-
-	xchg bx,bx
 	jmp 	7c0h:4200h
 
 .error:
