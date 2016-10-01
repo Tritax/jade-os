@@ -14,6 +14,28 @@ bits    32
 _vid_x    db 0
 _vid_y    db 0
 
+; puts
+puts:
+  pusha
+  push    ebx
+  pop     edi
+
+.loop:
+  mov   bl, byte[edi]
+  cmp   bl, 0
+  je    .done
+
+  call  putch
+
+  inc   edi
+  jmp   .loop
+
+.done:
+  ; todo : update the cursor
+
+  popa
+  ret
+
 ; putch
 ;   output charatecr to video buffer
 ;   EBX => character to output
@@ -47,10 +69,10 @@ putch:
   xor   ecx, ecx
 
   ; check for special characters
-  cmp   bx, 0x0A
+  cmp   bl, 0x0A
   je    .newLine
 
-  cmp   bx, 0x0D
+  cmp   bl, 0x0D
   je    .crgReturn
 
   ; print character
@@ -65,20 +87,25 @@ putch:
   je    .crlf
 
   ; done
-  popa
-  ret
+  jmp   .done
 
 .crlf:
-  jmp   .newLine
-  jmp   .crgReturn
-  ret
+  inc   byte [_vid_y]
+  mov   byte [_vid_x], 0
+  jmp   .done
 
 .newLine:
+xchg bx, bx
   inc   byte [_vid_y]
-  ret
+  jmp   .done
 
 .crgReturn:
+xchg bx, bx
   mov   byte [_vid_x], 0
+  jmp   .done
+
+.done:
+  popa
   ret
 
 clear_screen:

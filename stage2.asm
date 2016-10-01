@@ -1,6 +1,8 @@
 ; stage2
 ;
 
+%define BOOTSEG 0x7c00
+
 [BITS 16]
 [ORG 0x4200]
 	jmp 	main
@@ -13,12 +15,10 @@
 ; entry point
 main:
 	cli
-	push 	cs
-	pop 	ds
-	push  cs
-	pop   es
 
 	xor 	ax, ax
+	mov   ds, ax
+	mov   es, ax
 	mov   ax, 0x9000
 	mov   ss, ax
 	mov   sp, 0xFFFF
@@ -32,7 +32,7 @@ main:
 	call 	enable_a20
 
 	; prepare to load
-	mov 	si, load_msg
+	mov 	si, [load_msg + 0xBE00]
 	call 	puts16
 
 	; enter PMode
@@ -41,8 +41,11 @@ main:
 	or 		eax, 1
 	mov 	cr0, eax
 
+
+	xchg bx, bx
+
 	; far jmp to 32bit
-	jmp		8:stage3
+	jmp		8:stage3 + BOOTSEG
 
 halt_sys:
 	cli
@@ -72,10 +75,13 @@ stage3:
 	; clear screen
 	call 	clear_screen
 
-	; print a test character
-	mov 	ebx, 'H'
-	call  putch
+	; test string print
+	mov 	ebx, msg + BOOTSEG
+	call  puts
 
 	; halt
 	cli
 	hlt
+
+; data
+msg			db "Welcome from 32bit land!", 13, 10, 0

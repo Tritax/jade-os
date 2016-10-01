@@ -142,7 +142,7 @@ find_kernel:
 
 load_kernel:
 	mov 	ax, WORD [bx + 26]	; starting cluster
-	mov 	bx, 0x4200			; memory offset for readSectors
+	mov 	bx, 0x4200					; memory offset for readSectors
 
 .fetch_cluster:
 	push 	ax

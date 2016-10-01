@@ -8,7 +8,7 @@ bits    16
 install_gdt:
   cli
   pusha
-  lgdt  [toc]
+  lgdt  [toc + BOOTSEG]
   sti
   popa
   ret
@@ -20,7 +20,7 @@ gdt_data:
 
 ; code descriptor
   dw  0FFFFh
-  dw  7c00h
+  dw  0
   db  0
   db  10011010b
   db  11001111b
@@ -37,6 +37,6 @@ gdt_data:
 end_of_gdt:
 toc:
   dw  end_of_gdt - gdt_data - 1
-  dd  0x7c00 + gdt_data
+  dd  BOOTSEG + gdt_data
 
 %endif ;__GDT_H_
