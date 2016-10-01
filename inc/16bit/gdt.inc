@@ -6,7 +6,6 @@
 bits    16
 
 install_gdt:
-xchg bx, bx
   cli
   pusha
   lgdt  [toc]
@@ -29,7 +28,7 @@ gdt_data:
 
 ; data descriptor
   dw  0FFFFh
-  dw  7c00h
+  dw  0
   db  0
   db  10010010b
   db  11001111b

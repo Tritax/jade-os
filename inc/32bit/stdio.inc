@@ -7,7 +7,7 @@
 bits    32
 
 ; defines
-%define VIDEOMEM  0xB80000
+%define VIDEOMEM  0xB8000
 %define COLS      80
 %define ROWS      25
 
@@ -79,6 +79,26 @@ putch:
 
 .crgReturn:
   mov   byte [_vid_x], 0
+  ret
+
+clear_screen:
+  pusha
+
+  xor   eax, eax
+  xor   ecx, ecx
+
+  ; loop through all 80x25 cells of Mode7 and replace the WORD for each
+  mov   edi, VIDEOMEM
+  mov   cx, 2000
+  mov   ah, 7
+  mov   al, ' '
+  rep   stosw
+
+  ; move cursor position
+  mov   byte [_vid_x], 0
+  mov   byte [_vid_y], 0
+
+  popa
   ret
 
 %endif  ;__STD_IO_H_
