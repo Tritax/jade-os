@@ -218,8 +218,8 @@ headAbs		db 0
 trackAbs 	db 0
 driveAbs  db 0
 
-%include "inc/prints.inc"
-%include "inc/disk.inc"
+%include "inc/boot/prints.inc"
+%include "inc/boot/disk.inc"
 
 ; term
 times 510-($-$$) db 0
