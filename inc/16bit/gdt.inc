@@ -3,9 +3,10 @@
 %ifndef __GDT_H_
 %define __GDT_H_
 
+bits    16
+
 install_gdt:
-  xchg bx, bx
-  
+xchg bx, bx
   cli
   pusha
   lgdt  [toc]
@@ -20,7 +21,7 @@ gdt_data:
 
 ; code descriptor
   dw  0FFFFh
-  dw  0
+  dw  7c00h
   db  0
   db  10011010b
   db  11001111b
@@ -28,7 +29,7 @@ gdt_data:
 
 ; data descriptor
   dw  0FFFFh
-  dw  0
+  dw  7c00h
   db  0
   db  10010010b
   db  11001111b
@@ -37,6 +38,6 @@ gdt_data:
 end_of_gdt:
 toc:
   dw  end_of_gdt - gdt_data - 1
-  dd  gdt_data
+  dd  0x7c00 + gdt_data
 
 %endif ;__GDT_H_
