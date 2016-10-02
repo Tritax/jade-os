@@ -1,6 +1,7 @@
 # build
 nasm -f bin boot.asm -o ./bin/boot.bin
 nasm -f bin stage2.asm -o ./bin/stage2.sys
+nasm -f bin kernel.asm -o ./bin/kernel.sys
 
 # nav
 cd ./bin
@@ -15,6 +16,8 @@ dd if=boot.bin of=disk.img conv=notrunc
 sudo mount /dev/loop0 /mnt -t msdos -o "fat=12"
 
 sudo cp -v -f ./stage2.sys /mnt/stage2
+sudo cp -v -f ./kernel.sys /mnt/kernel.sys
+
 sudo umount /mnt
 sudo losetup -d /dev/loop0
 

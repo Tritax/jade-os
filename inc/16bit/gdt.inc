@@ -8,7 +8,7 @@ bits    16
 install_gdt:
   cli
   pusha
-  lgdt  [toc + BOOTSEG]
+  lgdt  [toc + kBootSegment]
   sti
   popa
   ret
@@ -37,6 +37,6 @@ gdt_data:
 end_of_gdt:
 toc:
   dw  end_of_gdt - gdt_data - 1
-  dd  BOOTSEG + gdt_data
+  dd  kBootSegment + gdt_data
 
 %endif ;__GDT_H_

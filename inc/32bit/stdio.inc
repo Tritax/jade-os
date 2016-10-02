@@ -95,12 +95,10 @@ putch:
   jmp   .done
 
 .newLine:
-xchg bx, bx
   inc   byte [_vid_y]
   jmp   .done
 
 .crgReturn:
-xchg bx, bx
   mov   byte [_vid_x], 0
   jmp   .done
 
