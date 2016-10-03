@@ -18,7 +18,7 @@ gdt_data:
   dd  0
   dd  0
 
-; code descriptor
+; kernel code descriptor
   dw  0FFFFh
   dw  0
   db  0
@@ -26,7 +26,7 @@ gdt_data:
   db  11001111b
   db  0
 
-; data descriptor
+; kernel data descriptor
   dw  0FFFFh
   dw  0
   db  0

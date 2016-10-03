@@ -8,7 +8,7 @@ bits 16
 
 %include "inc/16bit/floppy.inc"
 
-%define kRootAddr     0xA000
+%define kRootAddr     0xa200
 
 ; data
 
@@ -114,7 +114,7 @@ load_fat12_file:
 	call 	readSectors
 
 	pop 	ax
-  
+
   pop   ecx
   inc   ecx
   push  ecx
