@@ -14,7 +14,7 @@ extern "C" void __attribute__((stdcall)) kernel_entry()
   __asm__ ("movw    %ax, %fs");
   __asm__ ("movw    %ax, %gs");
   __asm__ ("movw    %ax, %ss");
-  __asm__ ("movl    0x90000, %esp");
+  __asm__ ("movl    $0x90000, %esp");
   __asm__ ("movl    %esp, %ebp");
   __asm__ ("pushl   %ebp");
 

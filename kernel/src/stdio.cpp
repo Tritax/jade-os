@@ -27,14 +27,19 @@ void _increment_cursor()
 
 void cursor_xy (int x, int y)
 {
-  x = CLAMP(x, 0, COLS - 1);
-  y = CLAMP(y, 0, ROWS - 1);
+  xPos = CLAMP(x, 0, COLS - 1);
+  yPos = CLAMP(y, 0, ROWS - 1);
+}
+
+int getVideoIndexForCursor()
+{
+  return (yPos * COLS * 2) + (xPos * 2);
 }
 
 void putch(char cb)
 {
   unsigned char *ptr = (unsigned char *)VIDEO_MEM;
-  int idx = (yPos * COLS) + xPos;
+  int idx = getVideoIndexForCursor();
 
   switch (cb) {
     default:
