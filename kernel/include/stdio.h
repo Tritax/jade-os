@@ -17,4 +17,6 @@ void cursor_xy(int x, int y);
 
 void putch(char cb);
 
+void puts(const char *str);
+
 #endif//__STDIO_H_

@@ -3,7 +3,9 @@
 */
 
 #include "stdio.h"
-#include "common.h"
+#include "stdarg.h"
+#include "math.h"
+#include "string.h"
 
 
 
@@ -48,6 +50,34 @@ void putch(char cb)
       _increment_cursor();
       break;
   }
+}
+
+void puts(const char *str)
+{
+  if (!str) return;
+
+  for (size_t i = 0; i < strlen(str); i++) {
+    putch(str[i]);
+  }
+}
+
+int printf (const char *fmt, ...)
+{
+  if (!fmt) return 0;
+
+  //va_list   args;
+  //va_start(args, fmt);
+
+  for (size_t i = 0; i < strlen(fmt); i++) {
+    switch (fmt[i]) {
+      default:
+        break;
+    };
+  }
+
+  //va_end(args);
+
+  return 1;
 }
 
 void clear_screen()
